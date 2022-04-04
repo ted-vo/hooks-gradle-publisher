@@ -8,4 +8,4 @@ pluginDir=".semrel/$(go env GOOS)_$(go env GOARCH)/hooks-gradle-publisher/1.0.0/
   mkdir -p $pluginDir
 }
 
-go build -o $pluginDir/gradle-publisher ../cmd/hooks-gradle-publisher
+go build -o $pluginDir/gradle-publisher ./cmd/hooks-gradle-publisher
