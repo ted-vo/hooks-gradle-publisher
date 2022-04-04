@@ -6,6 +6,7 @@ require github.com/go-semantic-release/semantic-release/v2 v2.10.0
 
 require (
 	github.com/Masterminds/semver/v3 v3.1.0 // indirect
+	github.com/apex/log v1.9.0
 	github.com/fatih/color v1.7.0 // indirect
 	github.com/fsnotify/fsnotify v1.4.7 // indirect
 	github.com/golang/protobuf v1.4.3 // indirect
@@ -20,6 +21,7 @@ require (
 	github.com/mitchellh/go-testing-interface v1.0.0 // indirect
 	github.com/mitchellh/mapstructure v1.1.2 // indirect
 	github.com/oklog/run v1.0.0 // indirect
+	github.com/pkg/errors v0.8.1 // indirect
 	github.com/pelletier/go-toml v1.2.0 // indirect
 	github.com/spf13/afero v1.1.2 // indirect
 	github.com/spf13/cast v1.3.0 // indirect

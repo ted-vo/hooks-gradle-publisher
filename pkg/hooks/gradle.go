@@ -1,46 +1,56 @@
 package hooks
 
 import (
-	"log"
 	"os/exec"
 
+	"github.com/apex/log"
 	"github.com/go-semantic-release/semantic-release/v2/pkg/hooks"
 )
 
-var NAME = "Gradle-Publisher"
+var NAME = "Gradle Publisher"
 var FUVERSION = "dev"
 
-type GradlePublisher struct {
-	Logger *log.Logger
-}
+type GradlePublisher struct{}
 
-func (t *GradlePublisher) Init(m map[string]string) error {
-	t.Logger.Printf("init: %v\n", m)
-	out, err := exec.Command("date").Output()
-	if err != nil {
-		log.Fatal(err)
-	}
-	t.Logger.Printf("The date is %s\n", out)
+func (gp *GradlePublisher) Init(m map[string]string) error {
+	log.Infof("Init %v", m)
 	return nil
 }
 
-func (t *GradlePublisher) Name() string {
+func (gp *GradlePublisher) Name() string {
 	return NAME
 }
 
-func (t *GradlePublisher) Version() string {
+func (gp *GradlePublisher) Version() string {
 	return FUVERSION
 }
 
-func (t *GradlePublisher) Success(config *hooks.SuccessHookConfig) error {
-	t.Logger.Println("old version: " + config.PrevRelease.Version)
-	t.Logger.Println("new version: " + config.NewRelease.Version)
-	t.Logger.Printf("commit count: %d\n", len(config.Commits))
+func (gp *GradlePublisher) Success(config *hooks.SuccessHookConfig) error {
+	oldVersion := config.PrevRelease.Version
+	newVersion := config.NewRelease.Version
+	log.Infof("old version: " + oldVersion)
+	log.Infof("new version: " + newVersion)
+	if err := UpdateVersion(oldVersion, newVersion); err != nil {
+		return err
+	}
+	if err := gradlePublish(); err != nil {
+		return err
+	}
 	return nil
 }
 
-func (t *GradlePublisher) NoRelease(config *hooks.NoReleaseConfig) error {
-	t.Logger.Println("reason: " + config.Reason.String())
-	t.Logger.Println("message: " + config.Message)
+func (gp *GradlePublisher) NoRelease(config *hooks.NoReleaseConfig) error {
+	log.Infof("reason: " + config.Reason.String())
+	log.Infof("message: " + config.Message)
+	return nil
+}
+
+func gradlePublish() error {
+	log.Infof("Start gradle publish...")
+	out, err := exec.Command("./gradlew publish").Output()
+	if err != nil {
+		return err
+	}
+	log.Infof("Result %s", out)
 	return nil
 }
