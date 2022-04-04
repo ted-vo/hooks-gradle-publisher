@@ -1,6 +1,6 @@
 module github.com/go-semantic-release/hooks-gradle-publisher
 
-go 1.18
+go 1.17
 
 require github.com/go-semantic-release/semantic-release/v2 v2.10.0
 
