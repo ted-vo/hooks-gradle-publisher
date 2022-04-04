@@ -1,4 +1,4 @@
 .idea/
 test/.npmrc
-.semrel/
-semantic-release
+scripts/.semrel/
+scripts/semantic-release
