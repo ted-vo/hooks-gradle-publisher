@@ -6,7 +6,7 @@ This Gradle publisher Hooks plugin for https://github.com/go-semantic-release
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/ted-vo/hooks-gradle-publisher)](https://pkg.go.dev/github.com/ted-vo/hooks-gradle-publisher)
 
 ## Usage
-Use this plugin by enabling it via `--hooks gradle-publisher`.Cancel
+Use this plugin by enabling it via `--hooks gradle-publisher`.
 
 ## Licence
 
