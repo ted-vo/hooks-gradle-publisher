@@ -19,7 +19,7 @@ func NewLogHandler() *LogHandler {
 }
 
 func (h *LogHandler) HandleLog(e *log.Entry) error {
-	str := fmt.Sprintf("(%s) %s", e.Level.String(), e.Message)
+	str := fmt.Sprintf(e.Message)
 	if len(e.Fields) == 0 {
 		h.logger.Println(str)
 		return nil
