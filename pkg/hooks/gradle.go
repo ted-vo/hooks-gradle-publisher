@@ -30,9 +30,6 @@ func (gp *GradlePublisher) Success(config *hooks.SuccessHookConfig) error {
 	newVersion := config.NewRelease.Version
 	log.Infof("old version: " + oldVersion)
 	log.Infof("new version: " + newVersion)
-	if err := UpdateVersion(oldVersion, newVersion); err != nil {
-		return err
-	}
 	if err := gradlePublish(); err != nil {
 		return err
 	}
