@@ -44,7 +44,8 @@ func (gp *GradlePublisher) NoRelease(config *hooks.NoReleaseConfig) error {
 
 func gradlePublish() error {
 	log.Infof("Start gradle publish...")
-	out, err := exec.Command("./gradlew publish").Output()
+
+	out, err := exec.Command("./gradlew", "publish").Output()
 	if err != nil {
 		return err
 	}
