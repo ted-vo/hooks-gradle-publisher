@@ -3,3 +3,4 @@ test/.npmrc
 .semrel/
 scripts/.semrel/
 scripts/semantic-release
+.dccache

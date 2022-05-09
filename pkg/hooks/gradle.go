@@ -4,7 +4,7 @@ import (
 	"os/exec"
 
 	"github.com/apex/log"
-	"github.com/go-semantic-release/semantic-release/v2/pkg/hooks"
+	"github.com/ted-vo/semantic-release/v3/pkg/hooks"
 )
 
 var NAME = "Gradle Publisher"

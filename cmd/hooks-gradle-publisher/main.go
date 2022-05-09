@@ -2,9 +2,9 @@ package main
 
 import (
 	"github.com/apex/log"
-	hookGradle "github.com/go-semantic-release/hooks-gradle-publisher/pkg/hooks"
-	"github.com/go-semantic-release/semantic-release/v2/pkg/hooks"
-	"github.com/go-semantic-release/semantic-release/v2/pkg/plugin"
+	hookGradle "github.com/ted-vo/hooks-gradle-publisher/pkg/hooks"
+	"github.com/ted-vo/semantic-release/v3/pkg/hooks"
+	"github.com/ted-vo/semantic-release/v3/pkg/plugin"
 )
 
 func main() {
