@@ -1,7 +1,9 @@
 package hooks
 
 import (
+	"bufio"
 	"os/exec"
+	"strings"
 
 	"github.com/apex/log"
 	"github.com/ted-vo/semantic-release/v3/pkg/hooks"
@@ -10,10 +12,14 @@ import (
 var NAME = "Gradle Publisher"
 var FUVERSION = "dev"
 
-type GradlePublisher struct{}
+type GradlePublisher struct {
+	CMD string
+}
 
 func (gp *GradlePublisher) Init(m map[string]string) error {
 	log.Infof("Init %v", m)
+	gp.CMD = m["cmd"]
+
 	return nil
 }
 
@@ -30,7 +36,7 @@ func (gp *GradlePublisher) Success(config *hooks.SuccessHookConfig) error {
 	newVersion := config.NewRelease.Version
 	log.Infof("old version: " + oldVersion)
 	log.Infof("new version: " + newVersion)
-	if err := gradlePublish(); err != nil {
+	if err := gp.gradlePublish(); err != nil {
 		return err
 	}
 	return nil
@@ -42,14 +48,37 @@ func (gp *GradlePublisher) NoRelease(config *hooks.NoReleaseConfig) error {
 	return nil
 }
 
-func gradlePublish() error {
+func (gp *GradlePublisher) gradlePublish() error {
 	log.Infof("Start gradle publish...")
 
-	out, err := exec.Command("./gradlew", "publish", "-Dorg.gradle.parallel=true").Output()
+	cmd := gp.CMD
+	cmdArgs := strings.Fields(cmd)
+
+	if len(gp.CMD) == 0 {
+		cmdArgs = append(cmdArgs, "./gradlew", "publish")
+	}
+
+	cmdPipe := exec.Command(cmdArgs[0], cmdArgs[1:]...)
+	log.Infof("Command: %s %s", cmdArgs[0], strings.Join(cmdArgs[1:], " "))
+
+	stdout, err := cmdPipe.StdoutPipe()
 	if err != nil {
 		log.Infof("error oucring when publishing. Detail: %s", err.Error())
 		return err
 	}
-	log.Infof("Result %s", out)
+	err = cmdPipe.Start()
+	if err != nil {
+		log.Infof("error oucring when publishing. Detail: %s", err.Error())
+		return err
+	}
+
+	// print the output of the subprocess
+	scanner := bufio.NewScanner(stdout)
+	for scanner.Scan() {
+		m := scanner.Text()
+		log.Infof(m)
+	}
+
+	cmdPipe.Wait()
 	return nil
 }
