@@ -66,8 +66,7 @@ func (gp *GradlePublisher) gradlePublish() error {
 		log.Infof("error oucring when publishing. Detail: %s", err.Error())
 		return err
 	}
-	err = cmdPipe.Start()
-	if err != nil {
+	if err := cmdPipe.Start(); err != nil {
 		log.Infof("error oucring when publishing. Detail: %s", err.Error())
 		return err
 	}
@@ -79,6 +78,9 @@ func (gp *GradlePublisher) gradlePublish() error {
 		log.Infof(m)
 	}
 
-	cmdPipe.Wait()
+	if err := cmdPipe.Wait(); err != nil {
+		log.Infof("error oucring when publishing. Detail: %s", err.Error())
+		return err
+	}
 	return nil
 }
