@@ -1,5 +1,0 @@
-#!/bin/bash
-
-./scripts/build
-
-cp -R .semrel/$(go env GOOS)_$(go env GOARCH)/hooks-gradle-publisher /Users/V9N/Workspaces/vn.meepo/user-service/.semrel/$(go env GOOS)_$(go env GOARCH)
