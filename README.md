@@ -1,5 +1,7 @@
 # 🚢 hooks-gradle-publisher
 
+# No longer supported. Please use [publisher-gradle](https://github.com/ted-vo/publisher-gradle) instead of
+
 This Gradle publisher Hooks plugin for [semantic-release](https://github.com/ted-vo/semantic-release)
 
 [![CI](https://github.com/ted-vo/hooks-gradle-publisher/workflows/CI/badge.svg?branch=main)](https://github.com/ted-vo/hooks-gradle-publisher/actions?query=workflow%3ACI+branch%3Amain)
